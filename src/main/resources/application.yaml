@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: HackerThon
+  datasource:
+    password: root
+    username: root
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/hackerthon
+covalent:
+  api:
+    key: cqt_rQgVhPr8tFRHvVPwWb3TKJQYRC47
+  base:
+    url: https://api.covalenthq.com/v1
+shyft:
+  api:
+    key: q5p0rOejI4sPb30q
+  base:
+    url: https://api.shyft.to
+helius:
+  api:
+    key: 5862dba5-6c72-4f88-a463-b2a0edfbf675
+logging:
+  level:
+    com.netflix.discovery: DEBUG
+    org.springframework.cloud: TRACE
