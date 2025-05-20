@@ -1,11 +1,6 @@
 spring:
   application:
     name: HackerThon
-  datasource:
-    password: root
-    username: root
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/hackerthon
 covalent:
   api:
     key: cqt_rQgVhPr8tFRHvVPwWb3TKJQYRC47

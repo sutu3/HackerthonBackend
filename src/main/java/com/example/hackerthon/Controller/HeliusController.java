@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class HeliusController {
     HeliusService heliusService;
     @GetMapping("/transaction/{signature}")
-    public String getTransaction(@PathVariable String signature) throws Exception {
+    public PredictResponse getTransaction(@PathVariable String signature) throws Exception {
         return heliusService.getPredict(signature);
     }
 }
