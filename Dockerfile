@@ -1,4 +1,4 @@
-FROM maven:3.8.5-openjdk-17 AS builder
+FROM maven:3.8.5-openjdk-21 AS builder
 # (Hoặc phiên bản Java bạn dùng, ví dụ: eclipse-temurin:17-jdk-jammy)
 
 WORKDIR /app
