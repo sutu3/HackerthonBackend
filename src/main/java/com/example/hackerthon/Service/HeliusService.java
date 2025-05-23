@@ -1,6 +1,9 @@
 package com.example.hackerthon.Service;
 
+import com.example.hackerthon.Client.AiModelClient;
+import com.example.hackerthon.Client.HeliusApiClient;
 import com.example.hackerthon.Dto.Response.PredictResponse;
+import com.example.hackerthon.Dto.Response.RugPullResponse;
 import com.example.hackerthon.Utils.CheckLiquidity;
 import com.example.hackerthon.Utils.FeatureUtils;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -21,6 +24,8 @@ import java.util.*;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
 public class HeliusService {
+    HeliusApiClient heliusApiClient;
+    AiModelClient aiModelClient;
     Set<String> relevantTypes = Set.of(
             "ADD_LIQUIDITY", "REMOVE_LIQUIDITY", "SWAP", "UNKNOWN",
             "INCREASE_LIQUIDITY", "DECREASE_LIQUIDITY", "LIQUIDITY_ADD", "LIQUIDITY_REMOVE"
@@ -41,50 +46,18 @@ public class HeliusService {
 
 
 
-    public PredictResponse getPredict(String address) {
+    public RugPullResponse getPredict(String address) {
         try {
-            return extractPoolFeatures(address);
+            PredictResponse predictResponse= extractPoolFeatures(address);
+            return aiModelClient.predict(predictResponse);
         } catch (Exception e) {
             log.error("Error extracting features for address {}: {}", address, e.getMessage(), e);
-            // Trả về default object khi lỗi
-            return PredictResponse.builder()
-                    .NUM_LIQUIDITY_ADDS(0)
-                    .NUM_LIQUIDITY_REMOVES(0)
-                    .TOTAL_ADDED_LIQUIDITY(0.0)
-                    .TOTAL_REMOVED_LIQUIDITY(0.0)
-                    .ADD_TO_REMOVE_RATIO(0.0)
-/*
-                    .INACTIVITY_STATUS(true)
-*/
-                    .INACTIVITY_STATUS_Active(false)
-                    .INACTIVITY_STATUS_Inactive(true)
-                    .FIRST_POOL_ACTIVITY_TIMESTAMP_hour(-1.0)
-                    .FIRST_POOL_ACTIVITY_TIMESTAMP_day(-1.0)
-                    .FIRST_POOL_ACTIVITY_TIMESTAMP_weekday(-1.0)
-                    .FIRST_POOL_ACTIVITY_TIMESTAMP_month(-1.0)
-                    .LAST_POOL_ACTIVITY_TIMESTAMP_hour(-1.0)
-                    .LAST_POOL_ACTIVITY_TIMESTAMP_day(-1.0)
-                    .LAST_POOL_ACTIVITY_TIMESTAMP_weekday(-1.0)
-                    .LAST_POOL_ACTIVITY_TIMESTAMP_month(-1.0)
-                    .LAST_SWAP_TIMESTAMP_hour(-1.0)
-                    .LAST_SWAP_TIMESTAMP_day(-1.0)
-                    .LAST_SWAP_TIMESTAMP_weekday(-1.0)
-                    .LAST_SWAP_TIMESTAMP_month(-1.0)
-                    .build();
+            return null;
         }
     }
 
     public PredictResponse extractPoolFeatures(String address) throws Exception {
-        String url = "https://api.helius.xyz/v0/addresses/" + address + "/transactions?api-key=" + heliusApiKey;
-        log.info("Calling Helius API: {}", url);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<Void> entity = new HttpEntity<>(headers);
-
-        ResponseEntity<JsonNode> response = restTemplate.exchange(url, HttpMethod.GET, entity, JsonNode.class);
-        JsonNode root = response.getBody();
-
+        JsonNode root = heliusApiClient.getTransactions(address,heliusApiKey);
         if (root == null || !root.isArray()) {
             log.warn("No transaction array returned for address {}", address);
             throw new Exception("No transactions found for address " + address); // Thêm thông tin address vào exception
