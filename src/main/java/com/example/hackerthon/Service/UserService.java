@@ -64,6 +64,7 @@ public class UserService {
         if (UserRepo.existsUserByEmail(request.email())) {
             throw new AppException(ErrorCode.EMAIL_IS_EXITED);
         }
+
         User user = mapper.toEntity(request);
         Role role=roleRepo.findByName(RoleUser.Normal.name())
                 .orElseThrow(()->new AppException(ErrorCode.ROLE_NOT_FOUND));
