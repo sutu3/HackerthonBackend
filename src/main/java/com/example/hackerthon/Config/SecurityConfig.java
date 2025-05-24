@@ -33,7 +33,8 @@ public class SecurityConfig {
             "/authentications/token",
             "/authentications/introspect",
             "/api/payment/create",
-            "/api/mail"
+            "/api/mail",
+            "/api/helius/transaction"
 
 
     };
