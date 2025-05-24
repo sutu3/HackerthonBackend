@@ -5,9 +5,8 @@ import lombok.Builder;
 
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public record RugPullResponse(
-        String anomaly_score,
-        int prediction_label,
-        String prediction_message) {
-
+public record AuthenticationResponse(
+        String accessToken,
+        boolean authenticated
+) {
 }

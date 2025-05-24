@@ -13,7 +13,7 @@ public class CrosConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         // TODO Auto-generated method stub
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:5173","deluxe-kitten-b4a25c.netlify.app ") // Thay thế bằng URL của frontend
+                .allowedOrigins("http://localhost:5173","https://deluxe-kitten-b4a25c.netlify.app") // Thay thế bằng URL của frontend
                 .allowedMethods("GET", "POST", "PUT", "DELETE") // Cho phép các phương thức HTTP cụ thể
                 .allowedHeaders("*")
                 .allowCredentials(true);

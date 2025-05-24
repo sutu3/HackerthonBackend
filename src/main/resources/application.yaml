@@ -1,6 +1,33 @@
 spring:
   application:
     name: HackerThon
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: minhdaimk111@gmail.com
+    password: qalwnukbtdganhgg
+    properties:
+      mail.smtp.starttls.enable: true  # ? B?t bu?c kích ho?t TLS
+      mail.smtp.auth: true
+      mail.smtp.ssl.trust: smtp.gmail.com
+    test-connection: false
+  datasource:
+    url: "jdbc:mysql://mysql-32d8e507-minhdaimk111-0ea4.l.aivencloud.com:25644/hackerthon?serverTimezone=UTC&sslMode=REQUIRED"
+    username: avnadmin
+    password: AVNS_qlIFCPONWrpyRD8A4Rr
+    driver-class-name: "com.mysql.cj.jdbc.Driver"
+  jpa:
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+server:
+  port: 8080
+  address: 0.0.0.0
+jwt:
+  signedJWT: "aGUDzL2OOlvQcHJE5fpfzxv0w6MUZtFhF4IRZo+Tc/z5FnKjn8xxJvoot4OVj6LP"
+  valid-duration: 3600
+  refreshable-duration: 360000
 covalent:
   api:
     key: cqt_rQgVhPr8tFRHvVPwWb3TKJQYRC47
