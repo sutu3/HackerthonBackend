@@ -15,6 +15,7 @@ spring:
     url: "jdbc:mysql://mysql-32d8e507-minhdaimk111-0ea4.l.aivencloud.com:25644/hackerthon?serverTimezone=UTC&sslMode=REQUIRED"
     username: "avnadmin"
     password: "AVNS_qlIFCPONWrpyRD8A4Rr"
+
     driver-class-name: "com.mysql.cj.jdbc.Driver"
   jpa:
     hibernate:
