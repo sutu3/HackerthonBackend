@@ -77,7 +77,7 @@ public class UserService {
                         .password(passwordEncoder.encode(request.password()))
                         .rawPassword(request.password())
                         .createdAt(LocalDateTime.now())
-                        /*.roles(rolelist)*/
+                        .roles(rolelist)
                         .build()));
     }
 
